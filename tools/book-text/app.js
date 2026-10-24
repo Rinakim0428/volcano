@@ -1,5 +1,6 @@
 import { extractBook } from './extractor.js';
 import { pdfOptions } from './pdf-bootstrap.js';
+import { initMillieBridge } from './millie-bridge.js';
 
 const el = id => document.getElementById(id);
 const PREVIEW_LIMIT = 50000;
@@ -261,3 +262,4 @@ for (const eventName of ['dragover', 'drop']) window.addEventListener(eventName,
   if (Array.from(event.dataTransfer?.types || []).includes('Files')) event.preventDefault();
 });
 reset();
+initMillieBridge({ onFile: file => selectFile([file]) });

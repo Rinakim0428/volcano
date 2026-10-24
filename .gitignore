@@ -9,3 +9,6 @@ tools/book-text/node_modules/
 tools/book-text/__pycache__/
 tools/book-text/*-preview.png
 tools/book-text/test-output/
+
+tools/millie-connect/assets/
+tools/millie-connect/__pycache__/

@@ -13,8 +13,22 @@
       <p class="eyebrow">BOOK TEXT · LOCAL</p>
       <h1>책 본문을<br>텍스트로 저장하세요.</h1>
       <p class="lead">내가 가진 EPUB·PDF·TXT 파일에서 본문을 읽어<br class="desktop-break"> 검색하고 활용하기 쉬운 텍스트 파일로 만듭니다.</p>
-      <p class="privacy"><span aria-hidden="true">●</span> 파일은 이 브라우저 안에서 처리됩니다. 서버로 전송하지 않습니다.</p>
+      <p class="privacy"><span aria-hidden="true">●</span> 본문 변환은 이 브라우저 안에서 처리됩니다. 외부 서버로 전송하지 않습니다.</p>
     </header>
+
+    <section id="millie-panel" class="millie-panel" aria-labelledby="millie-heading" hidden>
+      <p class="eyebrow">MILLIE · MAC</p>
+      <h2 id="millie-heading">밀리에서 열어 둔 책 연결</h2>
+      <p class="millie-description">Mac의 밀리의서재 앱에서 원하는 책 본문을 열어 두세요. 현재 리더가 제공하며 읽기가 허용된 텍스트를 확인해 가져옵니다.</p>
+      <div class="millie-actions">
+        <button id="millie-connect" class="primary" type="button">밀리에서 열어 둔 책 연결</button>
+        <button id="millie-cancel" class="text-button" type="button" hidden>가져오기 취소</button>
+      </div>
+      <p id="millie-status" class="status" role="status" aria-live="polite" aria-atomic="true">연결을 확인한 다음, 찾은 책의 ‘본문 가져오기’를 누르세요.</p>
+      <ul id="millie-notes" class="millie-notes" hidden></ul>
+      <ul id="millie-books" class="millie-books" aria-label="현재 정보를 확인한 책" hidden></ul>
+      <p class="millie-scope">앱이 제공하는 미리보기 일부만 가져올 수도 있습니다. 온라인 서재 자동 다운로드와 보호 해제 기능은 없으며, 계정에 자동 로그인하지 않습니다.</p>
+    </section>
 
     <ol class="steps" aria-label="사용 순서">
       <li><span>01</span> 파일 추가</li>
@@ -87,7 +101,7 @@
 
     <aside class="scope-note" aria-label="지원 범위">
       <h2>어떤 파일을 사용할 수 있나요?</h2>
-      <p>사용자가 선택한 파일의 본문을 변환하는 도구입니다. 밀리 계정에 로그인하거나 온라인 서재에서 책을 자동으로 내려받는 기능은 없습니다.</p>
+      <p>사용자가 선택한 파일의 본문을 변환합니다. Mac 연결 도구로 실행하면 밀리 앱에서 열어 둔 책의 읽기가 허용된 본문을 가져올 수도 있습니다. 밀리 계정에 자동 로그인하거나 온라인 서재에서 책을 자동으로 내려받지는 않습니다.</p>
       <p>밀리 앱의 보호된 파일과 스캔 PDF는 현재 변환하지 못합니다. 암호화된 EPUB·PDF도 지원하지 않으며, 지원하지 않는 파일은 오류를 표시합니다. 원본 파일은 변경하지 않습니다.</p>
     </aside>
     <footer>목차 순서와 본문을 확인한 뒤 저장하세요. PDF의 단 나눔·표·각주 등은 원본과 읽는 순서가 다를 수 있습니다.</footer>
