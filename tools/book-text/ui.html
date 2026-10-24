@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="내가 선택한 EPUB·PDF·TXT 파일의 본문을 브라우저 안에서 읽고 TXT·Markdown·JSON으로 저장합니다.">
+  <title>책 본문 내보내기</title>
+  <style>__APP_CSS__</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="intro">
+      <p class="eyebrow">BOOK TEXT · LOCAL</p>
+      <h1>책 본문을<br>텍스트로 저장하세요.</h1>
+      <p class="lead">내가 가진 EPUB·PDF·TXT 파일에서 본문을 읽어<br class="desktop-break"> 검색하고 활용하기 쉬운 텍스트 파일로 만듭니다.</p>
+      <p class="privacy"><span aria-hidden="true">●</span> 파일은 이 브라우저 안에서 처리됩니다. 서버로 전송하지 않습니다.</p>
+    </header>
+
+    <ol class="steps" aria-label="사용 순서">
+      <li><span>01</span> 파일 추가</li>
+      <li><span>02</span> 본문 확인</li>
+      <li><span>03</span> 파일 저장</li>
+    </ol>
+
+    <section id="drop-zone" class="source-card" aria-labelledby="source-heading">
+      <div class="source-copy">
+        <span class="file-symbol" aria-hidden="true">Aa</span>
+        <div>
+          <h2 id="source-heading">책 파일 한 권을 추가하세요</h2>
+          <p>여기로 끌어놓거나 파일 선택 버튼을 누르세요.</p>
+          <p class="hint">EPUB · 텍스트가 포함된 PDF · UTF-8 TXT / 파일당 최대 128 MiB</p>
+        </div>
+      </div>
+      <button id="choose-book" class="primary" type="button">책 파일 선택</button>
+      <input id="book-file" type="file" accept=".epub,.pdf,.txt" hidden>
+      <p id="file-name" class="file-name" hidden></p>
+    </section>
+
+    <div class="operation-bar">
+      <p id="status" class="status" role="status" aria-live="polite" aria-atomic="true">파일을 선택하면 본문 변환을 시작합니다.</p>
+      <div class="operation-actions">
+        <button id="cancel" class="text-button" type="button" hidden>변환 취소</button>
+        <button id="reset" class="text-button" type="button" hidden>선택 지우기</button>
+      </div>
+      <progress id="progress" max="100" value="0" aria-label="본문 변환 진행률" hidden></progress>
+    </div>
+
+    <section id="result" class="result" aria-labelledby="book-title" hidden>
+      <div class="book-header">
+        <div>
+          <p class="eyebrow">READY TO SAVE</p>
+          <h2 id="book-title"></h2>
+          <p id="book-author" class="book-author" hidden></p>
+        </div>
+        <span id="book-format" class="format-badge"></span>
+      </div>
+      <dl class="stats">
+        <div><dt id="section-count-label">장 / 페이지</dt><dd id="chapter-count">0</dd></div>
+        <div><dt>본문 글자 수</dt><dd id="character-count">0</dd></div>
+        <div><dt>원본 파일 크기</dt><dd id="source-size">0 B</dd></div>
+      </dl>
+
+      <div id="warnings" class="warnings" hidden>
+        <p class="warning-label">확인할 내용</p>
+        <ul id="warning-list"></ul>
+      </div>
+
+      <div class="preview-heading">
+        <h3>본문 미리보기</h3>
+        <label for="chapter-select">범위 <select id="chapter-select"><option value="all">전체 본문</option></select></label>
+      </div>
+      <pre id="preview" class="preview" tabindex="0" aria-label="변환된 본문 미리보기"></pre>
+      <p id="preview-note" class="hint"></p>
+
+      <section class="downloads" aria-labelledby="download-heading">
+        <div class="download-intro">
+          <h3 id="download-heading">확인한 본문을 저장하세요</h3>
+          <p>TXT는 일반 텍스트, Markdown은 장별 문서, JSON은 구조화한 데이터입니다.</p>
+        </div>
+        <div class="download-actions">
+          <button id="download-txt" class="primary" type="button" disabled>본문 TXT 다운로드</button>
+          <button id="download-md" class="secondary" type="button" disabled>Markdown</button>
+          <button id="download-json" class="secondary" type="button" disabled>JSON</button>
+        </div>
+      </section>
+    </section>
+
+    <aside class="scope-note" aria-label="지원 범위">
+      <h2>어떤 파일을 사용할 수 있나요?</h2>
+      <p>사용자가 선택한 파일의 본문을 변환하는 도구입니다. 밀리 계정에 로그인하거나 온라인 서재에서 책을 자동으로 내려받는 기능은 없습니다.</p>
+      <p>밀리 앱의 보호된 파일과 스캔 PDF는 현재 변환하지 못합니다. 암호화된 EPUB·PDF도 지원하지 않으며, 지원하지 않는 파일은 오류를 표시합니다. 원본 파일은 변경하지 않습니다.</p>
+    </aside>
+    <footer>목차 순서와 본문을 확인한 뒤 저장하세요. PDF의 단 나눔·표·각주 등은 원본과 읽는 순서가 다를 수 있습니다.</footer>
+  </main>
+  <script>__APP_BUNDLE__</script>
+</body>
+</html>

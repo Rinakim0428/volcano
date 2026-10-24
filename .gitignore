@@ -1,0 +1,11 @@
+tools/millie-export/vendor/node_modules/
+tools/millie-export/Millie-Data-Export.html
+tools/millie-export/__pycache__/
+tools/millie-export/test-fixtures/
+tools/millie-export/browser-test-*.zip
+tools/millie-export/*-preview.png
+
+tools/book-text/node_modules/
+tools/book-text/__pycache__/
+tools/book-text/*-preview.png
+tools/book-text/test-output/

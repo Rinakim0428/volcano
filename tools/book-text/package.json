@@ -1,0 +1,12 @@
+{
+  "name": "local-book-text-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs" },
+  "dependencies": {
+    "@zip.js/zip.js": "2.24.0",
+    "pdfjs-dist": "6.4.299"
+  },
+  "devDependencies": { "esbuild": "0.28.2" }
+}
