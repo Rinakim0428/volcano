@@ -1,0 +1,44 @@
+name: Book Text ZIP file offline verification
+
+on:
+  push:
+    branches: [codex/book-text-file-offline-20261025]
+    paths:
+      - '.github/workflows/book-text-file-offline.yml'
+      - 'tools/book-text/**'
+      - 'downloads/Book-Text-Studio.*'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shipped-zip:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install playwright==1.64.1 reportlab pypdf
+          python -m playwright install --with-deps chromium
+          python -m pip freeze
+      - name: Test the shipped ZIP via file URLs
+        run: python tools/book-text/test-release.py
+      - name: Preserve test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-text-file-offline-evidence
+          path: tools/book-text/test-output/file-release/
+          if-no-files-found: warn
+          retention-days: 30

@@ -45,9 +45,31 @@ python3 tools/book-text/test-millie-bridge-bundled.py
 python3 tools/book-text/build-release.py
 ```
 
-브라우저 테스트에는 Python Playwright, reportlab, pypdf와 Chromium이 필요합니다. `CHROMIUM_EXECUTABLE`로 Chromium 경로를 지정할 수 있습니다. 이 개발 환경에는 위 도구가 이미 제공되어 있습니다. 배포된 HTML을 사용하는 데 이 개발 도구를 설치할 필요는 없습니다.
+브라우저 테스트에는 Python Playwright 1.48 이상, reportlab, pypdf와 Chromium이 필요합니다. `CHROMIUM_EXECUTABLE`로 Chromium 경로를 지정할 수 있습니다. 배포된 HTML을 사용하는 데 이 개발 도구를 설치할 필요는 없습니다.
 
 합성 EPUB/PDF/TXT로 실제 본문과 한글, 읽기 순서, 세 가지 다운로드 파일의 내용, 암호화·스캔·손상 입력 거부, 취소·재선택, 좁은 화면, 외부 요청이 없는 실행을 검증했습니다. **검증은 Linux Chromium의 localhost에서 수행했습니다. 실제 Mac 실행과 실제 밀리 도서 파일은 검증하지 않았습니다.** 관리형 브라우저에서 `file://` 이동이 제한되어 직접 파일 열기 테스트는 수행하지 못했습니다.
+
+### 배포 ZIP의 독립 실행 검증 (2026-10-25)
+
+배포된 ZIP을 먼저 검사하려면 소스를 재빌드하지 않고 다음 명령을 실행합니다.
+
+```sh
+python3 -m pip install 'playwright>=1.48' reportlab pypdf
+python3 -m playwright install chromium
+python3 tools/book-text/test-release.py
+```
+
+`test-release.py`는 SHA256·CRC·파일 목록과 내장 스크립트를 검사한 뒤, ZIP을 임시 폴더에 풀고 **그 안의 HTML**을 `file://`로 엽니다. 새 브라우저에서 시작 전 오프라인 설정과 외부 요청 차단 모드를 각각 실행합니다. EPUB/PDF/TXT × TXT/Markdown/JSON의 다운로드 내용, 실제 PDF Blob 워커의 문서 처리, 한글 CMap 요청, 동봉 예제, 외부 요청과 로컬 보조 파일 요청을 확인합니다. HTTP 서버나 `--allow-file-access-from-files`·`--disable-web-security` 옵션은 사용하지 않습니다. 결과와 실패 로그는 `tools/book-text/test-output/file-release/`에 남습니다.
+
+브라우저를 실행할 수 없는 환경에서는 다음 명령으로 **정적 검사만** 실행할 수 있습니다.
+
+```sh
+python3 tools/book-text/test-release.py --static-only
+```
+
+이번 환경에서는 ZIP 무결성, 배포 HTML 일치, 워커·CMap 168개·표준 글꼴 14개 내장 및 JavaScript 구문 검사를 통과했습니다. 그러나 확보한 Linux Chromium 153.0.8010.0이 시작 직후 `SIGTRAP`으로 종료되어 HTML을 열지 못했습니다. **`file://` 본문 추출·PDF 워커·다운로드·실행 중 외부 요청 없음은 아직 미검증이며, 추가한 브라우저 회귀 테스트도 통과를 확인하지 못했습니다.** 상세 근거와 재현 절차는 [독립 실행 검증 기록](tools/book-text/FILE-OFFLINE-VERIFICATION.md)에 있습니다.
+
+소스를 변경한 후에는 `npm run build --prefix tools/book-text`, `python3 tools/book-text/build-release.py`, `python3 tools/book-text/test-release.py` 순서로 새 배포 ZIP을 검사합니다. Mac 연결기 빌드·병합 및 GitHub Pages 배포는 이 검증에 포함하지 않습니다.
 
 `build.mjs`는 루트 `index.html`과 `downloads/Book-Text-Studio.html`을 생성합니다. `build-release.py`는 HTML, 사용 안내, 직접 작성한 예제와 라이선스를 ZIP으로 묶고 SHA256을 기록합니다. `make-test-fixtures.py`는 테스트용 입력만 생성합니다.
 
